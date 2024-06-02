@@ -1,3 +1,8 @@
+.env.local_emulator
+.env.bstack
+allure-results
+tests/allure-results
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -122,7 +127,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+.env.local_emulator
 .venv
 env/
 venv/
