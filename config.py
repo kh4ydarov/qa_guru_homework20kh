@@ -1,14 +1,7 @@
 import os
-from pathlib import Path
-
 from appium.options.android import UiAutomator2Options
-from dotenv import load_dotenv
-
 from selene_in_action import utils
 from pydantic import BaseModel
-
-context = os.getenv('context', 'bstack')
-load_dotenv(Path(f'.env.{context}'))
 
 
 class Config(BaseModel):
