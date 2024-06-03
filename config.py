@@ -1,23 +1,27 @@
 import os
+from pathlib import Path
+
 from appium.options.android import UiAutomator2Options
 from dotenv import load_dotenv
+
 from selene_in_action import utils
 from pydantic import BaseModel
+
+context = os.getenv('context', 'bstack')
+load_dotenv(Path(f'.env.{context}'))
 
 
 class Config(BaseModel):
     context: str
     remote_url: str = os.getenv('REMOTE_URL')
     device_name: str = os.getenv('DEVICE_NAME')
-    appName: str = os.getenv('APP_NAME')
     appWaitActivity: str = os.getenv('APP_WAIT_ACTIVITY')
     app_bstack: str = os.getenv('APP')
     platformName: str = os.getenv('PLATFORM_NAME')
     platformVersion: str = os.getenv('PLATFORM_VERSION')
-    load_dotenv(dotenv_path=utils.file.abs_path_from_project('.env'))
     userName: str = os.getenv('USER_NAME')
     accessKey: str = os.getenv('ACCESS_KEY')
-    app_local: str = os.getenv('APP_LOCAL')
+    app_local: str = utils.file.abs_path_from_project(os.getenv('APP'))
     udid: str = os.getenv('UDID')
 
     def to_driver_options(self, context):
@@ -27,7 +31,7 @@ class Config(BaseModel):
             options.set_capability('remote_url', self.remote_url)
             options.set_capability('udid', self.udid)
             options.set_capability('appWaitActivity', self.appWaitActivity)
-            options.set_capability('app_local', self.app_local)
+            options.set_capability('app', self.app_local)
 
         if context == 'bstack':
             options.set_capability('remote_url', self.remote_url)

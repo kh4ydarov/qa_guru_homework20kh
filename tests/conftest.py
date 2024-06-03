@@ -18,9 +18,8 @@ def pytest_addoption(parser):
 
 def pytest_configure(config):
     context = config.getoption('--context')
-    current_dir = Path(__file__).parent.parent
-    env_file = os.path.join(current_dir, f'.env.{context}')
-    load_dotenv(env_file)
+    env_file = f'.env.{context}'
+    load_dotenv(dotenv_path=env_file)
 
 
 @pytest.fixture
